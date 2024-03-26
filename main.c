@@ -63,7 +63,7 @@ void change_regular(int n, float coins[], float to_change) {
     if (to_change == 0) {
         for (int i = 0; i < n; i++) {
             // Print 0 coins of the current coin, if the coin is an integer
-            if (coins[i] == (int)coins[i])
+            if (coins[i] == (int)coins[i])//(int)coins[i] < coins[i]
                 printf("0 coins of type %d\n", (int)coins[i]);
             else // Print 0 coins of the current coin, if the coin is a float
                 printf("0 coins of type %.2f\n", coins[i]);
@@ -197,6 +197,9 @@ int *sort_arr(int *elements, int size) {
     return elements_copy;
 }
 
+/* For testing purposes:
+   Gets the address of an array of integers, and the size of the array,
+   and prints the elements of the array */
 void print_array(int *elements, int size) {
     printf("{");
     for (int i = 0; i < size; i++) {
@@ -210,11 +213,19 @@ void print_array(int *elements, int size) {
 }
 
 int main() {
+    //part 1:
     // Test the change_regular method
+    //exact change possible example:
+    float coins[] = {10, 5,  1, 0.5, 0.1};
+    int n = 5;
+    float to_change = 6.80;
+    change_regular(n, coins, to_change);
+    printf("\n");
+
     //No Coins Provided (n = 0):
     float coins1[0] = {};
-    int n = 0;
-    float to_change = 5.0;
+    n = 0;
+    to_change = 5.0;
     change_regular(n, coins1, to_change);
     printf("\n");
 
@@ -233,16 +244,16 @@ int main() {
     printf("\n");
 
     //Exact Change Possible:
-    float coins4[] = {1, 0.5, 0.25};
-    n = 3;
-    to_change = 1.75;
+    float coins4[] = {10, 5, 2,1,0.5,0.1};
+    n = 6;
+    to_change = 35.7;
     change_regular(n, coins4, to_change);
     printf("\n");
 
     //Exact Change Impossible:
-    float coins5[] = {1, 0.5};
-    n = 2;
-    to_change = 0.75;
+    float coins5[] = {25, 17,15,0.89,0.05,0.04};
+    n = 6;
+    to_change = 22.33;
     change_regular(n, coins5, to_change);
     printf("\n");
 
@@ -261,9 +272,9 @@ int main() {
     printf("\n");
 
     //Duplicate Coin Values:
-    float coins8[] = {1, 1, 0.5, 0.25, 0.25};
+    float coins8[] = {6, 3, 2, 6, 2};
     n = 5;
-    to_change = 2.5;
+    to_change = 7;
     change_regular(n, coins8, to_change);
     printf("\n");
 
@@ -274,6 +285,7 @@ int main() {
     change_regular(n, coins9, to_change);
     printf("\n\n");
 
+    //part 2:
     // Test the copyarray method
     //Empty Array (size = 0):
     int array1[] = {};
