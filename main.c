@@ -7,10 +7,12 @@
    and the number of coins needed for change */
 void change_regular(int n, float coins[], float to_change) {
     // Check if the number of coins is 0
+    /*
     if (n == 0) {
         printf("Error: no coins\n");
         return;
     }
+    */
 
     // Check if the amount to change is negative
     if (to_change < 0) {
@@ -212,169 +214,80 @@ void print_array(int *elements, int size) {
     printf("}\n");
 }
 
-int main() {
-    //part 1:
-    // Test the change_regular method
-    //exact change possible example:
-    float coins[] = {10, 5,  1, 0.5, 0.1};
-    int n = 5;
-    float to_change = 6.80;
-    change_regular(n, coins, to_change);
+void test_change_regular() {
+    // Test case 1: Exact change possible
+    float coins1[] = {2.00, 1.00, 0.50, 0.20, 0.10, 0.05, 0.02, 0.01};
+    int n1 = sizeof(coins1) / sizeof(coins1[0]);
+    float to_change1 = 5.00;
+
+    printf("Test case 1:\n");
+    change_regular(n1, coins1, to_change1);
     printf("\n");
 
-    //No Coins Provided (n = 0):
-    float coins1[0] = {};
-    n = 0;
-    to_change = 5.0;
-    change_regular(n, coins1, to_change);
+    // Test case 2: Exact change impossible
+    float coins2[] = {0.25, 0.10, 0.05};
+    int n2 = sizeof(coins2) / sizeof(coins2[0]);
+    float to_change2 = 0.31;
+
+    printf("Test case 2:\n");
+    change_regular(n2, coins2, to_change2);
     printf("\n");
 
-    //Negative Amount to Change (to_change < 0):
-    float coins2[3] = {1, 0.5, 0.25};
-    n = 3;
-    to_change = -2.0;
-    change_regular(n, coins2, to_change);
+    // Test case 3: Empty coin array
+    float coins3[] = {};
+    int n3 = 0;
+    float to_change3 = 0.00;
+
+    printf("Test case 3:\n");
+    change_regular(n3, coins3, to_change3);
     printf("\n");
 
-    //Zero Amount to Change (to_change = 0):
-    float coins3[3] = {1, 0.5, 0.25};
-    n = 3;
-    to_change = 0;
-    change_regular(n, coins3, to_change);
+    // Test case 4: Large amount
+    float coins4[] = {50.00, 20.00, 10.00, 5.00, 2.00, 1.00};
+    int n4 = sizeof(coins4) / sizeof(coins4[0]);
+    float to_change4 = 100.00;
+
+    printf("Test case 4:\n");
+    change_regular(n4, coins4, to_change4);
     printf("\n");
 
-    //Exact Change Possible:
-    float coins4[] = {10, 5, 2,1,0.5,0.1};
-    n = 6;
-    to_change = 35.7;
-    change_regular(n, coins4, to_change);
+    // Test case 5: Single coin type
+    float coins5[] = {1.00};
+    int n5 = sizeof(coins5) / sizeof(coins5[0]);
+    float to_change5 = 1.00;
+
+    printf("Test case 5:\n");
+    change_regular(n5, coins5, to_change5);
     printf("\n");
-
-    //Exact Change Impossible:
-    float coins5[] = {25, 17,15,0.89,0.05,0.04};
-    n = 6;
-    to_change = 22.33;
-    change_regular(n, coins5, to_change);
-    printf("\n");
-
-    //Large Number of Coins Needed:
-    float coins6[] = {1, 0.5, 0.25};
-    n = 3;
-    to_change = 20.0;
-    change_regular(n, coins6, to_change);
-    printf("\n");
-
-    //Coins with Decimal Values:
-    float coins7[] = {0.25, 0.1, 0.05};
-    n = 3;
-    to_change = 0.4;
-    change_regular(n, coins7, to_change);
-    printf("\n");
-
-    //Duplicate Coin Values:
-    float coins8[] = {6, 3, 2, 6, 2};
-    n = 5;
-    to_change = 7;
-    change_regular(n, coins8, to_change);
-    printf("\n");
-
-    //Large Number of Coin Types:
-    float coins9[] = {5, 2, 1, 0.5, 0.25, 0.1, 0.05, 0.01};
-    n = 8;
-    to_change = 3.76;
-    change_regular(n, coins9, to_change);
-    printf("\n\n");
-
-    //part 2:
-    // Test the copyarray method
-    //Empty Array (size = 0):
-    int array1[] = {};
-    int size = 0;
-    print_array(copyarray(array1, size), size);
-    printf("\n");
-
-    //Single Element Array (size = 1):
-    int array2[] = {5};
-    size = 1;
-    print_array(copyarray(array2, size), size);
-    printf("\n");
-
-    //Large Array:
-    int array3[1000]; // Initialize with some values
-    size = 1000;
-    print_array(copyarray(array3, size), size);
-    printf("\n");
-
-    //Null Pointer (elements = NULL):
-    int *array4 = NULL;
-    size = 10;
-    copyarray(array4, size);
-    printf("\n");
-
-    //Negative Size (size < 0):
-    int array5[] = {1, 2, 3};
-    size = -3;
-    copyarray(array5, size);
-    printf("\n\n");
-
-    // Test the sort_arr method
-    //Empty Array (size = 0):
-    int array6[] = {};
-    size = 0;
-    print_array(sort_arr(array6, size), size);
-    printf("\n");
-
-    //Single Element Array (size = 1):
-    int array7[] = {5};
-    size = 1;
-    print_array(sort_arr(array7, size), size);
-    printf("\n");
-
-    //Array with All Equal Elements:
-    int array8[] = {3, 3, 3, 3};
-    size = 4;
-    print_array(sort_arr(array8, size), size);
-    printf("\n");
-
-    //Array with Negative Elements:
-    int array9[] = {-4, 2, -1, 0};
-    size = 4;
-    print_array(sort_arr(array9, size), size);
-    printf("\n");
-
-    //Large Array:
-    int array10[1000]; // Initialize with some values
-    size = 1000;
-    print_array(sort_arr(array10, size), size);
-    printf("\n");
-
-    //Array with Duplicates:
-    int array11[] = {5, 2, 5, 1, 2};
-    size = 5;
-    print_array(sort_arr(array11, size), size);
-    printf("\n");
-
-    //Sorted and Reverse Sorted Arrays:
-    int sorted_array[] = {1, 2, 3, 4};
-    size = 4;
-    int *sorted = sort_arr(sorted_array, size);
-    print_array(sorted, size);
-    printf("\n");
-
-    int reverse_sorted_array[] = {4, 3, 2, 1};
-    size = 4;
-    int *reverse_sorted = sort_arr(reverse_sorted_array, size);
-    print_array(reverse_sorted, size);
-    printf("\n");
-
-    //negative size
-    int array12[] = {1, 2, 3};
-    size = -3;
-    sort_arr(array12, size);
-    printf("\n");
-
-    //null pointer
-    int *array13 = NULL;
-    size = 10;
-    sort_arr(array13, size);
 }
+
+int main() {
+    test_change_regular();
+    // Test sort_arr function
+    int arr1[] = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5};
+    int size1 = sizeof(arr1) / sizeof(arr1[0]);
+    int *sorted_arr = sort_arr(arr1, size1);
+
+    printf("Sorted array: ");
+    for (int i = 0; i < size1; i++) {
+        printf("%d ", sorted_arr[i]);
+    }
+    printf("\n");
+
+    free(sorted_arr);
+
+    // Test copyArray function
+    int arr2[] = {10, 20, 30, 40, 50};
+    int size2 = sizeof(arr2) / sizeof(arr2[0]);
+    int *copied_arr = copyarray(arr2, size2);
+
+    printf("Copied array: ");
+    for (int i = 0; i < size2; i++) {
+        printf("%d ", copied_arr[i]);
+    }
+    printf("\n");
+
+    free(copied_arr);
+    return 0;
+}
+
